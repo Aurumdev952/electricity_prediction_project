@@ -54,9 +54,9 @@ class PredictElectricity(APIView):
 def feature_importance(request):
     """Endpoint to return feature importance data"""
     model = ElectricityModel.get_model()
-
+    preprocessor = model.named_steps['preprocessor']
     # Extract feature names and importance
-    feature_names = model.named_steps['regressor'].feature_names_in_
+    feature_names = preprocessor.get_feature_names_out()
     importances = model.named_steps['regressor'].feature_importances_
 
     # Create dictionary of feature importances
